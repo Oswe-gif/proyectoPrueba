@@ -31,7 +31,6 @@ if (app.Environment.IsEnvironment("Local"))
     app.UseSwaggerUI();
     Console.WriteLine("Local bro");
 }
-
 app.UseHttpsRedirection();
 
 app.MapControllers();
