@@ -32,8 +32,8 @@ jobs:
           file: ./backend/Dockerfile
           push: true
           tags: |
-            oswe/TechTrendEmporium-api-develop:${{ github.sha }}
-            oswe/TechTrendEmporium-api-develop:latest
+            oswe/tech-trend-emporium-api-develop:${{ github.sha }}
+            oswe/tech-trend-emporium-api-develop:latest
       - name: Send mail
         if: always()
         uses: dawidd6/action-send-mail@v3

@@ -19,8 +19,8 @@ jobs:
           username: ${{secrets.USER_NAME}}
           key: ${{secrets.SSH_PRIVATE_KEY}}
           script: |
-            docker pull oswe/TechTrendEmporium-api-develop:latest
-            docker stop TechTrendEmporium-api-develop
+            docker pull oswe/tech-trend-emporium-api-develop:latest
+            docker stop tech-trend-emporium-api-develop
       - name: run containers
         id: deployDev
         uses: appleboy/ssh-action@master
@@ -29,8 +29,8 @@ jobs:
           username: ${{secrets.USER_NAME}}
           key: ${{secrets.SSH_PRIVATE_KEY}}
           script: |
-            docker run --rm -d -p 8081:8080 --name TechTrendEmporium-api-develop oswe/TechTrendEmporium-api-develop:latest
-            docker images -q | grep -v -e $(docker images -q --filter "reference=oswe/TechTrendEmporium-api-develop:latest") -e $(docker images -q --filter "reference=oswe/TechTrendEmporiuma-api-prod:latest") | xargs -r docker rmi
+            docker run --rm -d -p 8081:8080 --name tech-trend-emporium-api-develop oswe/tech-trend-emporium-api-develop:latest
+            docker images -q | grep -v -e $(docker images -q --filter "reference=oswe/tech-trend-emporium-api-develop:latest") -e $(docker images -q --filter "reference=oswe/tech-trend-emporium-api-prod:latest") | xargs -r docker rmi
       - name: Send mail
         if: always()
         uses: dawidd6/action-send-mail@v3
