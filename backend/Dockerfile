@@ -20,6 +20,6 @@ RUN dotnet publish "./backend.csproj" -c $BUILD_CONFIGURATION -o /app/publish /p
 
 FROM base AS final
 WORKDIR /app
-ENV CURRENT_ENVIRONMENT = "Development"
+ENV ASPNETCORE_ENVIRONMENT Development
 COPY --from=publish /app/publish .
-ENTRYPOINT ["dotnet", "backend.dll","--environment=$CURRENT_ENVIRONMENT\"]
+ENTRYPOINT ["dotnet", "backend.dll"]
