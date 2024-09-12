@@ -135,3 +135,6 @@ C:\Users\jome\Downloads\proyectos\TechTrendEmporium\TechTrendEmporium\backend\ob
 C:\Users\jome\Downloads\proyectos\TechTrendEmporium\TechTrendEmporium\backend\obj\Release\net8.0\backend.pdb
 C:\Users\jome\Downloads\proyectos\TechTrendEmporium\TechTrendEmporium\backend\obj\Release\net8.0\backend.genruntimeconfig.cache
 C:\Users\jome\Downloads\proyectos\TechTrendEmporium\TechTrendEmporium\backend\obj\Release\net8.0\ref\backend.dll
+C:\Users\jome\Downloads\proyectos\TechTrendEmporium\TechTrendEmporium\backend\obj\Release\net8.0\backend.sourcelink.json
+C:\Users\jome\Downloads\proyectos\TechTrendEmporium\TechTrendEmporium\backend\bin\Release\net8.0\appsettings.Production.json
+C:\Users\jome\Downloads\proyectos\TechTrendEmporium\TechTrendEmporium\backend\bin\Release\net8.0\appsettings.Local.json
