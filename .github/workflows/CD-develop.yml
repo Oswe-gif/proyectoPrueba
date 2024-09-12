@@ -1,0 +1,55 @@
+on:
+  push:
+    branches: ["develop"]
+jobs: 
+  CD-develop:
+    name: CD-develop
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4 
+        env:
+            PRIVATE_KEY: ${{secrets.SSH_PRIVATE_KEY}}
+            HOSTNAME: ${{secrets.SSH_HOST}}
+            USER_NAME: ${{secrets.USER_NAME}}
+      
+      - name: Stop the container
+        uses: appleboy/ssh-action@master
+        with:
+          host: ${{secrets.SSH_HOST}}
+          username: ${{secrets.USER_NAME}}
+          key: ${{secrets.SSH_PRIVATE_KEY}}
+          script: |
+            docker pull oswe/TechTrendEmporium-api-develop:latest
+            docker stop TechTrendEmporium-api-develop
+      - name: run containers
+        id: deployDev
+        uses: appleboy/ssh-action@master
+        with:
+          host: ${{secrets.SSH_HOST}}
+          username: ${{secrets.USER_NAME}}
+          key: ${{secrets.SSH_PRIVATE_KEY}}
+          script: |
+            docker run --rm -d -p 8081:8080 --name TechTrendEmporium-api-develop oswe/TechTrendEmporium-api-develop:latest
+            docker images -q | grep -v -e $(docker images -q --filter "reference=oswe/TechTrendEmporium-api-develop:latest") -e $(docker images -q --filter "reference=oswe/TechTrendEmporiuma-api-prod:latest") | xargs -r docker rmi
+      - name: Send mail
+        if: always()
+        uses: dawidd6/action-send-mail@v3
+        with:
+          server_address: smtp.gmail.com
+          server_port: 465
+          username: ${{ secrets.EMAIL_USERNAME }}
+          password: ${{ secrets.EMAIL_PASSWORD }}
+          subject: ${{ github.job }} job of ${{ github.repository }} - ${{ job.status }}
+          body: | 
+            The job ${{ github.job }} in workflow ${{ github.workflow }} of repository ${{ github.repository }} - ${{ job.status }}.
+
+            Commit: ${{ github.sha }}
+            Commit Author: ${{ github.actor }}
+            Commit Message: ${{ github.event.head_commit.message }}
+
+            Status:
+            ${{ steps.deployDev.outcome != 'success' && 'The deployment has failed.' || 'The deployment was successful.' }}
+
+            For more details, visit the https://github.com/${{ github.repository }}/actions/runs/${{ github.run_id }}.
+          to: ${{secrets.EMAIL_WORKERS}}
+          from: Tech-trend-emporium
