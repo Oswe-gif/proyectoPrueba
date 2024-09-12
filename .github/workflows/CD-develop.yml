@@ -29,7 +29,7 @@ jobs:
           username: ${{secrets.USER_NAME}}
           key: ${{secrets.SSH_PRIVATE_KEY}}
           script: |
-            docker run --rm -d -p 8081:8080 -e CURRENT_ENVIRONMENT='Development' --name tech-trend-emporium-api-develop oswe/tech-trend-emporium-api-develop:latest
+            docker run --rm -d -p 8081:8080 -e -e ASPNETCORE_ENVIRONMENT=Development --name tech-trend-emporium-api-develop oswe/tech-trend-emporium-api-develop:latest
             docker images -q | grep -v -e $(docker images -q --filter "reference=oswe/tech-trend-emporium-api-develop:latest") -e $(docker images -q --filter "reference=oswe/tech-trend-emporium-api-prod:latest") | xargs -r docker rmi
       - name: Send mail
         if: always()
