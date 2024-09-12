@@ -18,12 +18,18 @@ builder.Services.AddDbContext<ApplicationDBContext>(options => {
 builder.Services.AddScoped<UserRepository, UserService>();
 
 var app = builder.Build();
-
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
 {
     app.UseSwagger();
     app.UseSwaggerUI();
+    Console.WriteLine("development bro");
+}
+if (app.Environment.IsEnvironment("Local"))
+{
+    app.UseSwagger();
+    app.UseSwaggerUI();
+    Console.WriteLine("Local bro");
 }
 
 app.UseHttpsRedirection();

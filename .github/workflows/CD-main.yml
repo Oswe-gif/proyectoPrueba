@@ -28,7 +28,7 @@ jobs:
           username: ${{secrets.USER_NAME}}
           key: ${{secrets.SSH_PRIVATE_KEY}}
           script: |
-            docker run --rm -d -p 8080:8080 --name tech-trend-emporium-api-prod oswe/tech-trend-emporium-api-prod:latest
+            docker run --rm -d -p 8080:8080 -e CURRENT_ENVIRONMENT='Production' --name tech-trend-emporium-api-prod oswe/tech-trend-emporium-api-prod:latest
             docker images -q | grep -v -e $(docker images -q --filter "reference=oswe/tech-trend-emporium-api-develop:latest") -e $(docker images -q --filter "reference=oswe/tech-trend-emporium-api-prod:latest") | xargs -r docker rmi
       - name: Send mail
         if: always()
