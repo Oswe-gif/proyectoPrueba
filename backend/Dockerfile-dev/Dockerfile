@@ -9,7 +9,6 @@ FROM mcr.microsoft.com/dotnet/sdk:8.0 AS build
 ARG BUILD_CONFIGURATION=Release
 WORKDIR /src
 COPY ["backend/backend.csproj", "backend/"]
-#ARG ASPNETCORE_ENVIRONMENT Development
 RUN dotnet restore "./backend/backend.csproj"
 COPY . .
 WORKDIR "/src/backend"
