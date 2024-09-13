@@ -13,14 +13,14 @@ jobs:
         uses: actions/setup-dotnet@v4
         with:
           dotnet-version: 8.0.x
-      - name: set appsettings
-        run: | 
-            sed -i 's/{DB_USER_PROD}/${{ secrets.DB_USER_PROD }}/g' appsettings.Production.json
-            sed -i 's/{DB_PASSWORD_PROD}/${{ secrets.DB_PASSWORD_PROD }}/g' appsettings.Production.json
       - name: Restore dependencies
         run: dotnet restore
       - name: Build
         run: dotnet build --no-restore
+      - name: set appsettings
+        run: | 
+            sed -i 's/{DB_USER_PROD}/${{ secrets.DB_USER_PROD }}/g' appsettings.Production.json
+            sed -i 's/{DB_PASSWORD_PROD}/${{ secrets.DB_PASSWORD_PROD }}/g' appsettings.Production.json
       - name: Tests
         id: testMain
         run: dotnet test --no-build --verbosity normal
