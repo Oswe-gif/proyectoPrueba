@@ -13,6 +13,10 @@ jobs:
         uses: actions/setup-dotnet@v4
         with:
           dotnet-version: 8.0.x
+      - name: set appsettings
+        run: | 
+            sed -i 's/{DB_USER_DEV}/${{ secrets.DB_USER_DEV }}/g' appsettings.Development.json
+            sed -i 's/{DB_PASSWORD_DEV}/${{ secrets.DB_PASSWORD_DEV }}/g' appsettings.Development.json
       - name: Restore dependencies
         run: dotnet restore
       - name: Build
