@@ -33,7 +33,7 @@ jobs:
         uses: docker/build-push-action@v6
         with:
           context: .
-          file: ./backend/Dockerfile-dev/Dockerfile
+          file: ./Dockerfile-dev/Dockerfile
           push: true
           tags: |
             oswe/tech-trend-emporium-api-develop:${{ github.sha }}

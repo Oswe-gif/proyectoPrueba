@@ -19,8 +19,8 @@ jobs:
         run: dotnet build --no-restore
       - name: set appsettings
         run: | 
-            sed -i 's/{DB_USER_PROD}/${{ secrets.DB_USER_PROD }}/g' appsettings.json/appsettings.Production.json
-            sed -i 's/{DB_PASSWORD_PROD}/${{ secrets.DB_PASSWORD_PROD }}/g' appsettings.json/appsettings.Production.json
+            sed -i 's/{DB_USER_PROD}/${{ secrets.DB_USER_PROD }}/g' appsettings.Production.json
+            sed -i 's/{DB_PASSWORD_PROD}/${{ secrets.DB_PASSWORD_PROD }}/g' appsettings.Production.json
       - name: Tests
         id: testMain
         run: dotnet test --no-build --verbosity normal
@@ -33,7 +33,7 @@ jobs:
         uses: docker/build-push-action@v6
         with:
           context: .
-          file: ./backend/Dockerfile-prod/Dockerfile
+          file: ./Dockerfile-prod/Dockerfile
           push: true
           tags: |
             oswe/tech-trend-emporium-api-prod:${{ github.sha }}
